@@ -5,14 +5,14 @@
 let mongoose = require('mongoose');
 
 // create book schema (class)
-var bookSchema = new mongoose.Schema({
+var adSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: 'Title is required'
+        required: 'Brand is required'
     },
-    author: {
+    car: {
         type: String,
-        required: 'Author is required'
+        required: 'Model is required'
     },
     price: {
         type: Number,
@@ -25,4 +25,4 @@ var bookSchema = new mongoose.Schema({
 });
 
 // make it public
-module.exports = mongoose.model('Book', bookSchema);
+module.exports = mongoose.model('Ad', adSchema);

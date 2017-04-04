@@ -1,0 +1,43 @@
+<% include ../partials/header.ejs %>
+<center>
+<h1>Cars</h1>
+    <center>
+<% if (user) { %>
+    <a href="/ads/add">Add a New Car</a>
+<% } %>
+<style>
+    .table{
+
+        border-top: solid;
+        border-radius: 5px;
+        width: 50%;
+        margin: 0px auto;
+        float: none;
+
+    }
+</style>
+<table class="table table-striped table-hover">
+    <tr><th>Make</th><th>Model</th><th>Price</th><th>Year</th>
+    <% if (user) { %>
+        <th>Actions</th>
+    <% } %>
+    </tr>
+
+    <% for (var i = 0; i < ads.length; i++) { %>
+        <tr>
+            <td><%= ads[i].title %></td>
+            <td><%= ads[i].car %></td>
+            <td><%= ads[i].price %></td>
+            <td><%= ads[i].year %></td>
+            <% if (user) { %>
+                <td>
+                    <a href="/ads/<%= ads[i]._id %>" class="btn btn-info">Edit</a>
+                    <a href="/ads/delete/<%= ads[i]._id %>" class="btn btn-danger confirmation">Delete</a>
+                </td>
+            <% } %>
+        </tr>
+    <% } %>
+
+</table>
+
+<% include ../partials/footer.ejs %>

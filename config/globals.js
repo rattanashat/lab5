@@ -5,5 +5,5 @@
 // array of global variables
 module.exports = {
     // db: 'mongodb://localhost/comp2068-w2017' // local mongodb
-    db :'w2017dba:root@ds033046.mlab.com:33046/comp2068-w2017'  // mlab
+    db :'rattan:root@ds139480.mlab.com:39480/assignment2ads'   // mlab
 };

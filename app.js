@@ -12,8 +12,8 @@ let localStrategy = require('passport-local').Strategy;
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-// reference the books controller we created
-var books = require('./routes/books');
+// reference the ads controller we created
+var ads = require('./routes/ads');
 
 var app = express();
 
@@ -59,7 +59,7 @@ passport.deserializeUser(Account.deserializeUser());
 // routing goes after passport config so controllers can use passport
 app.use('/', index);
 app.use('/users', users);
-app.use('/books', books); // handle all requests at /books with books router
+app.use('/ads', ads); // handle all requests at /ads with ads router
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

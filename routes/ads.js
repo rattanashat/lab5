@@ -1,12 +1,10 @@
-/**
- * Created by RFreeman on 2/1/2017.
- */
+
 // express setup
 let express = require('express');
 let router = express.Router();
 
-// link to the book model for CRUD operations
-let Book = require('../models/book');
+// link to the ad model for CRUD operations
+let Ad = require('../models/ad');
 
 // auth check
 function isLoggedIn(req, res, next) {
@@ -17,110 +15,110 @@ function isLoggedIn(req, res, next) {
    res.redirect('/'); // not logged in so redirect to home
 }
 
-/* GET books main page */
+/* GET ads main page */
 router.get('/', function(req, res, next) {
 
-   // use mongoose model to query mongodb for all books
-   Book.find(function(err, books) {
+   // use mongoose model to query mongodb for all ads
+   Ad.find(function(err, ads) {
       if (err) {
          console.log(err);
          res.end(err);
          return;
       }
 
-      // no error so send the books to the index view
-      res.render('books/index', {
-         books: books,
-         title: 'Book List',
+      // no error so send the ads to the index view
+      res.render('ads/index', {
+         ads: ads,
+         title: 'Ad List',
           user: req.user
       });
    });
 });
 
-// GET /books/add - show blank add form
+// GET /ads/add - show blank add form
 router.get('/add', isLoggedIn,  function(req, res, next) {
    // show the add form
-   res.render('books/add', {
-      title: 'Book Details',
+   res.render('ads/add', {
+      title: 'Ad Details',
        user: req.user
    });
 });
 
-// POST /books/add - save the new book
+// POST /ads/add - save the new ad
 router.post('/add', isLoggedIn, function(req, res, next) {
-   // use Mongoose to populate a new Book
-   Book.create({
+   // use Mongoose to populate a new Ad
+   Ad.create({
       title: req.body.title,
-      author: req.body.author,
+      car: req.body.car,
       price: req.body.price,
       year: req.body.year
-   }, function(err, book) {
+   }, function(err, ad) {
           if (err) {
              console.log(err);
              res.render('error');
              return;
           }
-         res.redirect('/books');
+         res.redirect('/ads');
    });
 });
 
-// GET /books/delete/_id - delete and refresh the index view
+// GET /ads/delete/_id - delete and refresh the index view
 router.get('/delete/:_id', isLoggedIn, function(req, res, next) {
    // get the id parameter from the end of the url
    let _id = req.params._id;
 
    // use Mongoose to delete
-   Book.remove({ _id: _id }, function(err) {
+   Ad.remove({ _id: _id }, function(err) {
       if (err) {
          console.log(err);
          res.render('error');
          return;
       }
-      res.redirect('/books');
+      res.redirect('/ads');
    });
 });
 
-// GET /books/_id - show edit page and pass it the selected book
+// GET /ads/_id - show edit page and pass it the selected Ad
 router.get('/:_id', isLoggedIn, function(req, res, next) {
    // grab id from the url
    let _id = req.params._id;
 
-   // use mongoose to find the selected book
-   Book.findById(_id, function(err, book) {
+   // use mongoose to find the selected Ad
+   Ad.findById(_id, function(err, Ad) {
       if (err) {
          console.log(err);
          res.render('error');
          return;
       }
-      res.render('books/edit', {
-         book: book,
-         title: 'Book Details',
+      res.render('ads/edit', {
+         Ad : Ad,
+         title: 'Ad Details',
           user: req.user
       });
    });
 });
 
-// POST /books/_id - save the updated book
+// POST /ads/_id - save the updated ad
 router.post('/:_id', isLoggedIn, function(req, res, next) {
    // grab id from url
    let _id = req.params._id;
 
-   // populate new book from the form
-   let book = new Book({
+   // populate new ad from the form
+   let ad = new Ad({
       _id: _id,
       title: req.body.title,
-      author: req.body.author,
+      car: req.body.car,
       price: req.body.price,
       year: req.body.year
    });
 
-   Book.update({ _id: _id }, book,  function(err) {
+   Ad.update({ _id: _id }, ad,  function(err) {
       if (err) {
          console.log(err);
          res.render('error');
          return;
       }
-      res.redirect('/books');
+      res.redirect('/ads');
    });
 });
 

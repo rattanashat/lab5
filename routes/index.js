@@ -8,7 +8,7 @@ let Account = require('../models/account');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', {
-    title: 'COMP2068 - Book Store',
+    title: 'Car Classifieds',
       user: req.user
   });
 });
@@ -51,7 +51,7 @@ router.post('/register', function(req, res, next) {
 
 /* POST login */
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/books',
+  successRedirect: '/ads',
   failureRedirect: '/login',
     failureMessage: 'Invalid Login'
 }));
